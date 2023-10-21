@@ -7,6 +7,8 @@ class Player {
         this.position = position
         this.image = image
 
+        this.numberOfJumps = 0
+
         this.playerSize = {
             w: 50,
             h: 100
@@ -19,26 +21,23 @@ class Player {
         }
 
         this.playerVel = {
-            left: 1,
+            left: 0.1,
             top: 0,
             gravity: 0.4
         }
 
         this.init()
-
-
     }
 
     move() {
 
-        if (this.playerPos.top < this.playerPos.base) {       // está saltando!
+        if (this.playerPos.top < this.playerPos.base) {       // hay que revisar esto, tiene que saltar varias veces
             this.playerPos.top += this.playerVel.top;
             this.playerVel.top += this.playerVel.gravity;
         } else {
             this.playerPos.top = this.playerPos.base;
             this.playerVel.top = 1;
         }
-
         this.updatePosition()
     }
 
@@ -48,20 +47,30 @@ class Player {
     }
 
     left() {
-        this.playerPos.position -= 20;
-        this.updatePosition()
+        if (this.playerPos.position > 0) {
+            this.playerPos.position -= 20;
+            this.updatePosition()
+        }
+
     }
 
     right() {
-        this.playerPos.position += 20;
-        this.updatePosition()
+        if (this.playerPos.position < this.gameSize.w - this.playerSize.w) {
+            this.playerPos.position += 20;
+            this.updatePosition()
+        }
+        console.log(this.gameScreen.style.width, this.playerPos.position, this.gameSize.w)
+
     }
 
     jump() {
         if (this.playerPos.top >= this.playerPos.base) {
-            this.playerPos.top -= 40;
+            this.playerPos.top -= 180;
             this.playerVel.top -= 8;
+            this.numberOfJumps++
         }
+
+        //queremos que pueda saltar tres veces seguidaasd
     }
 
 

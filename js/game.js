@@ -14,6 +14,9 @@ const Game = {
     player1: undefined,
     player2: undefined,
 
+    platform1: undefined,
+    platform2: undefined,
+
     // obstacles: [],
 
     keys: {
@@ -26,7 +29,6 @@ const Game = {
         right2: 'ArrowRight',
         shoot2: 'Enter'
     },
-
 
     init() {
         this.setDimensions()
@@ -50,7 +52,6 @@ const Game = {
                     break;
                 case this.keys.up1:
                     this.player1.jump()
-                    console.log('hola')
                     break;
                 case this.keys.shoot1:
                     this.player1.shoot()
@@ -78,8 +79,10 @@ const Game = {
     },
 
     createElements() {
-        this.player1 = new Player(this.gameSize, this.gameSize, 50, 'red')
-        this.player2 = new Player(this.gameSize, this.gameSize, 800, 'blue')
+        this.player1 = new Player(this.gameScreen, this.gameSize, 50, 'red')
+        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w - 100, 'blue')
+        this.platform1 = new Platform(this.gameScreen, this.gameSize, 800, 10, 200, 540)
+        // this.platform2 = new Platform(this.gameScreen, this.gameSize, 80, 10, 500, 800)
         //this.background = new Background(this.gameScreen, this.gameSize)
         //  this.obstacles = []
     },
