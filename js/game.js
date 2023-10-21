@@ -46,7 +46,6 @@ const Game = {
             switch (e.key) { // Hemos cambiado el e.code por e.key, porque no nos lo cogia
                 case this.keys.left1:
                     this.player1.left()
-                    console.log(this.mainPlatform)
                     break;
                 case this.keys.right1:
                     this.player1.right()
@@ -110,3 +109,6 @@ const Game = {
 
 
 }
+
+/// LE PASO POR PARAMETRO MAINPLATFORM PARA GUARDARLA, PERO TMB LE TENGO QUE PASAR EL INICIO Y FIN DEL PLATFORM PARA QUE INICIEN
+// LA POSICION ENCIMA, DEBERES PARA MAÑANA
