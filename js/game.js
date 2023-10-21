@@ -7,56 +7,24 @@ const Game = {
         h: window.innerHeight
     },
 
+    framesCounter: 0,
+
     background: undefined,
 
     player1: undefined,
     player2: undefined,
 
-    keys1: {
+    // obstacles: [],
+
+    keys: {
         up1: 'w',
         left1: 'a',
         right1: 'd',
-        shoot1: 'Space'
-    },
-
-    keys2: {
+        shoot1: 'Space',
         up2: 'ArrowUp',
         left2: 'ArrowLeft',
         right2: 'ArrowRight',
         shoot2: 'Enter'
-    },
-
-    setEventListeners() {
-        document.addEventListener("keydown", e => {
-            switch (e.code) {
-
-                case this.keys1.left1:
-                    this.player1.left()
-                    break;
-                case this.keys1.right1:
-                    this.player1.right()
-                    break;
-                case this.keys1.up1:
-                    this.player1.up()
-                    break;
-                case this.keys1.shoot1:
-                    this.player1.shoot()
-                    break;
-
-                case this.keys2.left2:
-                    this.player2.left()
-                    break;
-                case this.keys2.right2:
-                    this.player2.right()
-                    break;
-                case this.keys2.up2:
-                    this.player2.up()
-                    break;
-                case this.keys2.shoot2:
-                    this.player2.shoot()
-                    break;
-            }
-        })
     },
 
 
@@ -71,13 +39,71 @@ const Game = {
         this.gameScreen.style.height = `${this.gameSize.h}px`
     },
 
+    setEventListeners() {
+        document.addEventListener("keydown", e => {
+            switch (e.key) { // Hemos cambiado el e.code por e.key, porque no nos lo cogia
+                case this.keys.left1:
+                    this.player1.left()
+                    console.log('hola')
+                    break;
+                case this.keys.right1:
+                    this.player1.right()
+                    break;
+                case this.keys.up1:
+                    this.player1.up()
+                    break;
+                case this.keys.shoot1:
+                    this.player1.shoot()
+                    break;
+
+                case this.keys.left2:
+                    this.player2.left()
+                    break;
+                case this.keys.right2:
+                    this.player2.right()
+                    break;
+                case this.keys.up2:
+                    this.player2.up()
+                    break;
+                case this.keys.shoot2:
+                    this.player2.shoot()
+                    break;
+            }
+        })
+    },
+
     start() {
         this.createElements()
-        // this.gameLoop()
+        this.gameLoop()
     },
 
     createElements() {
         this.player1 = new Player(this.gameSize, this.gameSize, 50, 'red')
         this.player2 = new Player(this.gameSize, this.gameSize, 800, 'blue')
+        //this.background = new Background(this.gameScreen, this.gameSize)
+        //  this.obstacles = []
     },
+
+    gameLoop() {
+        this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
+
+        this.drawAll()
+
+        //   this.clearAll()
+        //  this.generateObstacles()
+        //  this.isCollision() && this.gameOver()
+
+        window.requestAnimationFrame(() => this.gameLoop())
+    },
+
+    drawAll() {
+
+        //   this.player1.left()
+
+        //  this.background.move()
+        // this.player.move()
+        // this.obstacles.forEach(obs => obs.move())
+    },
+
+
 }

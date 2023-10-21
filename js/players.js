@@ -13,7 +13,7 @@ class Player {
         }
 
         this.playerPos = {
-            left: this.position,
+            position: this.position,
             top: this.gameSize.h - this.playerSize.h - 20,
             base: this.gameSize.h - this.playerSize.h - 20,
         }
@@ -30,8 +30,10 @@ class Player {
     }
 
     left() {
-        console.log('izquierda')
+        this.playerPos.position -= 20;
+        this.playerElement.style.left = `${this.playerPos.position}px`;
     }
+
 
     init() {
 
@@ -40,7 +42,7 @@ class Player {
         this.playerElement.style.position = "absolute"
         this.playerElement.style.width = `${this.playerSize.w}px`
         this.playerElement.style.height = `${this.playerSize.h}px`
-        this.playerElement.style.left = `${this.playerPos.left}px`
+        this.playerElement.style.left = `${this.playerPos.position}px`
         this.playerElement.style.top = `${this.playerPos.top}px`
         this.playerElement.style.backgroundColor = `${this.image}`
 
