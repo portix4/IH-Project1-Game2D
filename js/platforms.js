@@ -1,44 +1,38 @@
 class Platform {
 
-    constructor(gameScreen, gameSize, playerPos, playerSize, width, height) {
-
-        // 
-
-        this.gameScreen = gameScreen;
-        this.gameSize = gameSize;
-        //  this.playerPos = playerPos;
-        //  this.playerSize = playerSize;
-        this.width = width
+    constructor(gameScreen, gameSize, position, height) {
+        this.gameScreen = gameScreen
+        this.gameSize = gameSize
+        this.width = position * 2
         this.height = height
+        this.leftPosition = position
 
-        this.obstacleSize = {
+        this.platformSize = {
             w: this.width,
             h: this.height
         }
 
-        this.obstaclePos = {
-            left: gameSize.w,
-            top: playerPos.base + playerSize.h - this.obstacleSize.h
+        this.platformPos = {
+            left: this.leftPosition,
         }
 
-        /*   this.obstacleVel = {
-               left: 10
-           }*/
 
         this.init()
     }
 
     init() {
-        this.obstacleElement = document.createElement('div')
 
-        this.obstacleElement.style.position = "absolute"
-        this.obstacleElement.style.backgroundColor = `black`
-        this.obstacleElement.style.width = `${this.obstacleSize.w}px`
-        this.obstacleElement.style.height = `${this.obstacleSize.h}px`
-        this.obstacleElement.style.left = `${this.obstaclePos.left}px`
-        this.obstacleElement.style.top = `${this.obstaclePos.top}px`
+        this.platformElement = document.createElement('div')
 
-        this.gameScreen.appendChild(this.obstacleElement)
+        this.platformElement.style.position = "absolute"
+        this.platformElement.style.backgroundColor = `black`
+        this.platformElement.style.width = `${this.platformSize.w}px`
+        this.platformElement.style.height = `${this.platformSize.h}px`
+        this.platformElement.style.left = `${this.platformPos.left}px`
+        // this.platformElement.style.top = `${this.obstaclePos.top}px`
+
+        this.gameScreen.appendChild(this.platformElement)
+
     }
 
     /*    move() {

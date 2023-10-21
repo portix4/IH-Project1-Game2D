@@ -39,6 +39,7 @@ class Player {
             this.playerVel.top = 1;
         }
         this.updatePosition()
+
     }
 
     updatePosition() {
@@ -47,19 +48,22 @@ class Player {
     }
 
     left() {
+
         if (this.playerPos.position > 0) {
             this.playerPos.position -= 20;
             this.updatePosition()
         }
 
+
+
     }
 
     right() {
+
         if (this.playerPos.position < this.gameSize.w - this.playerSize.w) {
             this.playerPos.position += 20;
             this.updatePosition()
         }
-        console.log(this.gameScreen.style.width, this.playerPos.position, this.gameSize.w)
 
     }
 

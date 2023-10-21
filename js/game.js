@@ -14,8 +14,8 @@ const Game = {
     player1: undefined,
     player2: undefined,
 
-    platform1: undefined,
-    platform2: undefined,
+    mainPlatform: undefined,
+    //  platform2: undefined,
 
     // obstacles: [],
 
@@ -46,6 +46,7 @@ const Game = {
             switch (e.key) { // Hemos cambiado el e.code por e.key, porque no nos lo cogia
                 case this.keys.left1:
                     this.player1.left()
+                    console.log(this.mainPlatform)
                     break;
                 case this.keys.right1:
                     this.player1.right()
@@ -79,11 +80,10 @@ const Game = {
     },
 
     createElements() {
+        this.mainPlatform = new Platform(this.gameScreen, this.gameSize.w, this.gameSize.w / 4)
         this.player1 = new Player(this.gameScreen, this.gameSize, 50, 'red')
         this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w - 100, 'blue')
-        this.platform1 = new Platform(this.gameScreen, this.gameSize, 800, 10, 200, 540)
-        // this.platform2 = new Platform(this.gameScreen, this.gameSize, 80, 10, 500, 800)
-        //this.background = new Background(this.gameScreen, this.gameSize)
+
         //  this.obstacles = []
     },
 
