@@ -29,9 +29,39 @@ class Player {
 
     }
 
+    move() {
+
+        if (this.playerPos.top < this.playerPos.base) {       // está saltando!
+            this.playerPos.top += this.playerVel.top;
+            this.playerVel.top += this.playerVel.gravity;
+        } else {
+            this.playerPos.top = this.playerPos.base;
+            this.playerVel.top = 1;
+        }
+
+        this.updatePosition()
+    }
+
+    updatePosition() {
+        this.playerElement.style.left = `${this.playerPos.position}px`;
+        this.playerElement.style.top = `${this.playerPos.top}px`
+    }
+
     left() {
         this.playerPos.position -= 20;
-        this.playerElement.style.left = `${this.playerPos.position}px`;
+        this.updatePosition()
+    }
+
+    right() {
+        this.playerPos.position += 20;
+        this.updatePosition()
+    }
+
+    jump() {
+        if (this.playerPos.top >= this.playerPos.base) {
+            this.playerPos.top -= 40;
+            this.playerVel.top -= 8;
+        }
     }
 
 

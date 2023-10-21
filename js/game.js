@@ -44,13 +44,13 @@ const Game = {
             switch (e.key) { // Hemos cambiado el e.code por e.key, porque no nos lo cogia
                 case this.keys.left1:
                     this.player1.left()
-                    console.log('hola')
                     break;
                 case this.keys.right1:
                     this.player1.right()
                     break;
                 case this.keys.up1:
-                    this.player1.up()
+                    this.player1.jump()
+                    console.log('hola')
                     break;
                 case this.keys.shoot1:
                     this.player1.shoot()
@@ -63,7 +63,7 @@ const Game = {
                     this.player2.right()
                     break;
                 case this.keys.up2:
-                    this.player2.up()
+                    this.player2.jump()
                     break;
                 case this.keys.shoot2:
                     this.player2.shoot()
@@ -98,10 +98,9 @@ const Game = {
 
     drawAll() {
 
-        //   this.player1.left()
-
         //  this.background.move()
-        // this.player.move()
+        this.player1.move()
+        this.player2.move()
         // this.obstacles.forEach(obs => obs.move())
     },
 
