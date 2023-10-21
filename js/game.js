@@ -80,7 +80,8 @@ const Game = {
     },
 
     createElements() {
-        this.mainPlatform = new Platform(this.gameScreen, this.gameSize.w, this.gameSize.w / 4)
+
+        this.mainPlatform = new Platform(50, 50, 50, 50)
         this.player1 = new Player(this.gameScreen, this.gameSize, 50, 'red')
         this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w - 100, 'blue')
 

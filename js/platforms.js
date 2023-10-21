@@ -1,21 +1,11 @@
 class Platform {
 
-    constructor(gameScreen, gameSize, position, height) {
-        this.gameScreen = gameScreen
-        this.gameSize = gameSize
-        this.width = position * 2
-        this.height = height
-        this.leftPosition = position
+    constructor(width, heigth, leftPosition, topPosition) {
 
-        this.platformSize = {
-            w: this.width,
-            h: this.height
-        }
-
-        this.platformPos = {
-            left: this.leftPosition,
-        }
-
+        this.width = width
+        this.heigth = heigth
+        this.leftPosition = leftPosition
+        this.topPosition = topPosition
 
         this.init()
     }
@@ -23,25 +13,19 @@ class Platform {
     init() {
 
         this.platformElement = document.createElement('div')
-
         this.platformElement.style.position = "absolute"
-        this.platformElement.style.backgroundColor = `black`
-        this.platformElement.style.width = `${this.platformSize.w}px`
-        this.platformElement.style.height = `${this.platformSize.h}px`
-        this.platformElement.style.left = `${this.platformPos.left}px`
-        // this.platformElement.style.top = `${this.obstaclePos.top}px`
+        this.platformElement.style.width = `${this.width}px`
+        this.platformElement.style.height = `${this.heigth}px`
+        this.platformElement.style.left = `${this.leftPosition}px`
+        this.platformElement.style.top = `${this.leftPosition}px`
+        this.platformElement.style.backgroundColor = "black"
 
-        this.gameScreen.appendChild(this.platformElement)
+        document.querySelector('#game-screen').appendChild(this.platformElement)
 
     }
 
-    /*    move() {
-            this.obstaclePos.left -= this.obstacleVel.left
-            this.updatePosition()
-        }
-    
-        updatePosition() {
-            this.obstacleElement.style.left = `${this.obstaclePos.left}px`
-            this.obstacleElement.style.top = `${this.obstaclePos.top}px`
-        }*/
+
+
+
 }
+
