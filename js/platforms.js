@@ -17,7 +17,7 @@ class Platform {
         this.platformElement.style.width = `${this.width}px`
         this.platformElement.style.height = `${this.heigth}px`
         this.platformElement.style.left = `${this.leftPosition}px`
-        this.platformElement.style.top = `${this.leftPosition}px`
+        this.platformElement.style.top = `${this.topPosition}px`
         this.platformElement.style.backgroundColor = "black"
 
         document.querySelector('#game-screen').appendChild(this.platformElement)
