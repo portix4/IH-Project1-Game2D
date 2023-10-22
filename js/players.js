@@ -57,7 +57,7 @@ class Player {
               this.playerVel.top = 1;
               this.playerVel.top += this.playerVel.gravity;
           }
-          this.updatePosition()  
+          this.updatePosition()  sdfsdfs
       }*/
 
     move() {
