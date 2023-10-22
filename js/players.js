@@ -72,9 +72,16 @@ class Player {
             this.playerVel.top += this.playerVel.gravity;
         }
 
+        if (this.playerPos.top <= this.mainPlatform.leftPosition) {
+            this.playerPos.top += this.playerVel.top;
+            this.playerVel.top += this.playerVel.gravity;
+        }
+
         if (this.playerPos.top > this.playerPos.base) {
             alert('Game Over', this.Player)
         }
+
+        //    if (this.playerPos.top>)
 
 
 
@@ -114,15 +121,19 @@ class Player {
 
         //queremos que pueda saltar x veces seguidas
 
-        if (this.playerPos.top >= this.playerPos.base) {
-            this.playerPos.top -= 180;
-            this.playerVel.top -= 8;
-        }
 
-
+        this.playerPos.top -= 180;
+        this.playerVel.top -= 8;
     }
 
-
-
+    /* este era el codigo que habia en la funcion move() para que saltara
+    if (this.playerPos.top < this.playerPos.base) {       // está saltando!
+        this.playerPos.top += this.playerVel.top;
+        this.playerVel.top += this.playerVel.gravity;
+    } else {
+        this.playerPos.top = this.playerPos.base;
+        this.playerVel.top = 1;
+    }
+    
+    this.updatePosition()*/
 }
-

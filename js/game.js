@@ -78,6 +78,7 @@ const Game = {
 
     createElements() {
 
+        this.background = new Background(this.gameScreen, this.gameSize)
         this.mainPlatform = new Platform(this.gameSize.w / 2, this.gameSize.h / 10, this.gameSize.w / 4, this.gameSize.h / 1.5)
         this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.5, 'black', this.mainPlatform)
         this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.5, 'rgb(12, 52, 18)', this.mainPlatform)
@@ -99,7 +100,7 @@ const Game = {
 
     drawAll() {
 
-        //  this.background.move()
+        this.background.move()
         this.player1.move()
         this.player2.move()
         // this.obstacles.forEach(obs => obs.move())
