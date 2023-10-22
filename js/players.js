@@ -1,11 +1,13 @@
 class Player {
 
-    constructor(gameScreen, gameSize, position, image) {
+    constructor(gameScreen, gameSize, leftPosition, topPosition, image, mainPlatform) {
 
         this.gameScreen = gameScreen
         this.gameSize = gameSize
-        this.position = position
+        this.leftPosition = leftPosition
+        this.topPosition = topPosition
         this.image = image
+        this.mainPlatform = mainPlatform
 
         this.numberOfJumps = 0
 
@@ -15,9 +17,9 @@ class Player {
         }
 
         this.playerPos = {
-            position: this.position,
-            top: this.gameSize.h - this.playerSize.h - 20,
-            base: this.gameSize.h - this.playerSize.h - 20,
+            position: this.leftPosition,
+            top: this.topPosition - this.playerSize.h - 40,
+            base: this.topPosition - this.playerSize.h
         }
 
         this.playerVel = {
@@ -29,6 +31,22 @@ class Player {
         this.init()
     }
 
+    init() {
+
+        this.playerElement = document.createElement('div')
+
+        this.playerElement.style.position = "absolute"
+        this.playerElement.style.width = `${this.playerSize.w}px`
+        this.playerElement.style.height = `${this.playerSize.h}px`
+        this.playerElement.style.left = `${this.leftPosition}px`
+        this.playerElement.style.top = `${this.playerPos.base}px`
+        this.playerElement.style.backgroundColor = `${this.image}`
+
+        document.querySelector('#game-screen').appendChild(this.playerElement)
+
+
+    }
+
     move() {
 
         if (this.playerPos.top < this.playerPos.base) {       // hay que revisar esto, tiene que saltar varias veces
@@ -37,14 +55,18 @@ class Player {
         } else {
             this.playerPos.top = this.playerPos.base;
             this.playerVel.top = 1;
+            this.playerVel.top += this.playerVel.gravity;
         }
         this.updatePosition()
+
+
 
     }
 
     updatePosition() {
         this.playerElement.style.left = `${this.playerPos.position}px`;
         this.playerElement.style.top = `${this.playerPos.top}px`
+        //  this.playerVel.top -= 0.5; CON ESTA LINEA, AL INICIAR EMPIEZAN A LEVITAR DESDE EL INICIO 
     }
 
     left() {
@@ -68,30 +90,19 @@ class Player {
     }
 
     jump() {
+
+        //queremos que pueda saltar x veces seguidas
+
         if (this.playerPos.top >= this.playerPos.base) {
             this.playerPos.top -= 180;
             this.playerVel.top -= 8;
             this.numberOfJumps++
         }
 
-        //queremos que pueda saltar tres veces seguidaasd
-    }
-
-
-    init() {
-
-        this.playerElement = document.createElement('div')
-
-        this.playerElement.style.position = "absolute"
-        this.playerElement.style.width = `${this.playerSize.w}px`
-        this.playerElement.style.height = `${this.playerSize.h}px`
-        this.playerElement.style.left = `${this.playerPos.position}px`
-        this.playerElement.style.top = `${this.playerPos.top}px`
-        this.playerElement.style.backgroundColor = `${this.image}`
-
-        document.querySelector('#game-screen').appendChild(this.playerElement)
-
 
     }
+
+
+
 }
 

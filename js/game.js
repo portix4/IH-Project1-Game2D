@@ -15,9 +15,7 @@ const Game = {
     player2: undefined,
 
     mainPlatform: undefined,
-    //  platform2: undefined,
 
-    // obstacles: [],
 
     keys: {
         up1: 'w',
@@ -80,9 +78,9 @@ const Game = {
 
     createElements() {
 
-        this.mainPlatform = new Platform(this.gameSize.w / 2, this.gameSize.h / 10, this.gameSize.w / 4, (this.gameSize.h / 1.5))
-        this.player1 = new Player(this.gameScreen, this.gameSize, 50, 'red')
-        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w - 100, 'blue')
+        this.mainPlatform = new Platform(this.gameSize.w / 2, this.gameSize.h / 10, this.gameSize.w / 4, this.gameSize.h / 1.5)
+        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.5, 'red', this.mainPlatform)
+        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.5, 'blue', this.mainPlatform)
 
         //  this.obstacles = []
     },
