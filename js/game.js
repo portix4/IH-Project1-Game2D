@@ -7,6 +7,7 @@ const Game = {
         h: window.innerHeight
     },
 
+
     framesCounter: 0,
 
     background: undefined,
@@ -79,9 +80,9 @@ const Game = {
     createElements() {
 
         this.background = new Background(this.gameScreen, this.gameSize)
-        this.mainPlatform = new Platform(this.gameSize.w / 2, this.gameSize.h / 10, this.gameSize.w / 4, this.gameSize.h / 1.5)
-        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.5, 'black', this.mainPlatform)
-        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.5, 'rgb(12, 52, 18)', this.mainPlatform)
+        this.mainPlatform = new Platform(this.gameSize.w / 2, this.gameSize.h / 15, this.gameSize.w / 4, this.gameSize.h / 1.4)
+        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.4, 'black', this.mainPlatform)
+        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.4, 'rgb(12, 52, 18)', this.mainPlatform)
 
         //  this.obstacles = []
     },
