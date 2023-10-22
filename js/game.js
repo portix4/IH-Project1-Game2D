@@ -79,8 +79,8 @@ const Game = {
     createElements() {
 
         this.mainPlatform = new Platform(this.gameSize.w / 2, this.gameSize.h / 10, this.gameSize.w / 4, this.gameSize.h / 1.5)
-        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.5, 'red', this.mainPlatform)
-        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.5, 'blue', this.mainPlatform)
+        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.5, 'black', this.mainPlatform)
+        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.5, 'rgb(12, 52, 18)', this.mainPlatform)
 
         //  this.obstacles = []
     },
