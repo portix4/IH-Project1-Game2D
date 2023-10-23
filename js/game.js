@@ -22,7 +22,7 @@ const Game = {
         up1: 'w',
         left1: 'a',
         right1: 'd',
-        shoot1: 'Space',
+        shoot1: ' ',
         up2: 'ArrowUp',
         left2: 'ArrowLeft',
         right2: 'ArrowRight',
@@ -62,6 +62,7 @@ const Game = {
                 case this.keys.left1:
                     this.player1.left()
                     break;
+
                 case this.keys.right1:
                     this.player1.right()
                     break;
@@ -70,8 +71,8 @@ const Game = {
                     break;
                 case this.keys.shoot1:
                     this.player1.shoot()
+                    console.log(e)
                     break;
-
                 case this.keys.left2:
                     this.player2.left()
                     break;
@@ -83,6 +84,7 @@ const Game = {
                     break;
                 case this.keys.shoot2:
                     this.player2.shoot()
+                    console.log(e)
                     break;
             }
         })

@@ -1,6 +1,6 @@
 class Player {
 
-    constructor(gameScreen, gameSize, leftPosition, topPosition, image, mainPlatform) {
+    constructor(gameScreen, gameSize, leftPosition, topPosition, image, mainPlatform, auxPlatform) {
 
         this.gameScreen = gameScreen
         this.gameSize = gameSize
@@ -8,6 +8,8 @@ class Player {
         this.topPosition = topPosition
         this.image = image
         this.mainPlatform = mainPlatform
+        this.auxPlatform = auxPlatform
+        this.bullets = []
 
         this.numberOfJumps = 0
 
@@ -62,6 +64,7 @@ class Player {
         if (this.playerPos.top < this.mainPlatform.topPosition - this.playerSize.h) { // salta
             this.playerPos.top += this.playerVel.top;
             this.playerVel.top += this.playerVel.gravity;
+            console.log(this.playerPos, this.playerVel)
         }
 
         if (this.playerPos.top > this.gameSize.h) { // Si llegan muy abajo, mueren
@@ -69,6 +72,9 @@ class Player {
         }
 
         this.updatePosition()
+
+        this.bullets.forEach(bullet => bullet.move())
+        this.clearBullets()
     }
 
     updatePosition() {
@@ -98,6 +104,22 @@ class Player {
         this.playerPos.top -= 40;
         this.playerVel.top -= 8;
         this.updatePosition()
+    }
+
+    shoot() {
+        this.bullets.push(new Bullets(this.gameScreen, {
+            left: this.playerPos.position,
+            top: this.playerPos.top
+        }, this.playerSize));
+    }
+
+    clearBullets() {
+        this.bullets.forEach((bull, idx) => {
+            if (bull.bulletPos.left >= this.gameSize.w) {
+                bull.bulletElement.remove()
+                this.bullets.splice(idx, 1)
+            }
+        })
     }
 
 }
