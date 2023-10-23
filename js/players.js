@@ -117,8 +117,6 @@ class Player {
 
     checkDirection() {
 
-        console.log(this.lastPosition[0], this.lastPosition[1])
-
         if (this.lastPosition.length >= 2) {
             if (this.lastPosition[0] < this.lastPosition[1]) {
                 return -1
@@ -141,7 +139,7 @@ class Player {
     clearBullets() {
 
         this.bullets.forEach((bull, idx) => {
-            if (bull.bulletPos.left >= this.gameSize.w) {
+            if (bull.bulletPos.left >= this.gameSize.w || bull.bulletPos.left < 0) {
                 bull.bulletElement.remove()
                 this.bullets.splice(idx, 1)
             }
