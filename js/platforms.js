@@ -23,10 +23,6 @@ class Platform {
         document.querySelector('#game-screen').appendChild(this.platformElement)
 
     }
-
-
-
-
 }
 
 

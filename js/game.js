@@ -16,7 +16,7 @@ const Game = {
     player2: undefined,
 
     mainPlatform: undefined,
-
+    auxPlatform: undefined,
 
     keys: {
         up1: 'w',
@@ -30,7 +30,23 @@ const Game = {
     },
 
     init() {
+
         this.setDimensions()
+
+        this.mainPlatform = {
+            width: this.gameSize.w / 2,
+            heigth: this.gameSize.h / 15,
+            leftPosition: this.gameSize.w / 4,
+            topPosition: this.gameSize.h / 1.4
+        }
+
+        this.auxPlatform = {
+            width: this.gameSize.w / 3,
+            heigth: this.gameSize.h / 18,
+            leftPosition: this.gameSize.w / 3,
+            topPosition: this.gameSize.h / 2.2
+        }
+
         this.setEventListeners()
         this.start()
     },
@@ -80,11 +96,11 @@ const Game = {
     createElements() {
 
         this.background = new Background(this.gameScreen, this.gameSize)
-        this.mainPlatform = new Platform(this.gameSize.w / 2, this.gameSize.h / 15, this.gameSize.w / 4, this.gameSize.h / 1.4)
-        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.4, 'black', this.mainPlatform)
-        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.4, 'rgb(12, 52, 18)', this.mainPlatform)
+        this.mainPlatform = new Platform(this.mainPlatform.width, this.mainPlatform.heigth, this.mainPlatform.leftPosition, this.mainPlatform.topPosition)
+        this.auxPlatform = new Platform(this.auxPlatform.width, this.auxPlatform.heigth, this.auxPlatform.leftPosition, this.auxPlatform.topPosition)
+        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.4, 'black', this.mainPlatform, this.auxPlatform)
+        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.4, 'rgb(12, 52, 18)', this.mainPlatform, this.auxPlatform)
 
-        //  this.obstacles = []
     },
 
     gameLoop() {
@@ -106,9 +122,4 @@ const Game = {
         this.player2.move()
         // this.obstacles.forEach(obs => obs.move())
     },
-
-
 }
-
-/// LE PASO POR PARAMETRO MAINPLATFORM PARA GUARDARLA, PERO TMB LE TENGO QUE PASAR EL INICIO Y FIN DEL PLATFORM PARA QUE INICIEN
-// LA POSICION ENCIMA, DEBERES PARA MAÑANA
