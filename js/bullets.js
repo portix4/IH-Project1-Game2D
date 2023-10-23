@@ -18,6 +18,7 @@ class Bullets {
         }
         this.init()
     }
+
     init() {
         this.bulletElement = document.createElement('div')
         this.bulletElement.style.position = "absolute"
@@ -29,6 +30,7 @@ class Bullets {
         this.bulletElement.style.top = `${this.bulletPos.top}px`
         this.gameScreen.appendChild(this.bulletElement)
     }
+
     move() {
         this.bulletPos.left += this.bulletVel.left
         this.bulletVel.top += this.bulletVel.gravity

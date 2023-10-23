@@ -18,6 +18,8 @@ const Game = {
     mainPlatform: undefined,
     auxPlatform: undefined,
 
+    bullets: [],
+
     keys: {
         up1: 'w',
         left1: 'a',
@@ -100,17 +102,17 @@ const Game = {
         this.auxPlatform = new Platform(this.auxPlatform.width, this.auxPlatform.heigth, this.auxPlatform.leftPosition, this.auxPlatform.topPosition)
         this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.4, 'green', this.mainPlatform, this.auxPlatform)
         this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.4, 'white', this.mainPlatform, this.auxPlatform)
-
+        this.bullets = []
     },
 
     gameLoop() {
+
         this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
 
         this.drawAll()
 
-        //   this.clearAll()
-        //  this.generateObstacles()
-        //  this.isCollision() && this.gameOver()
+        this.checkCollision()
+
 
         window.requestAnimationFrame(() => this.gameLoop())
     },
@@ -120,6 +122,37 @@ const Game = {
         this.background.move()
         this.player1.move()
         this.player2.move()
-        // this.obstacles.forEach(obs => obs.move())
     },
+
+
+
+    checkCollision() {
+
+        console.log(this.player1.bullets.length)
+
+        for (let i = 0; i < this.player1.bullets.length; i++) {
+            console.log('hola')
+            if (this.player1.playerPos.position + this.player1.playerSize.w >= this.bullets[i].bulletPos.left &&
+                this.player1.playerPos.top + this.player1.playerSize.h >= this.bullets[i].bulletPos.top &&
+                this.player1.playerPos.left <= this.bullets[i].bulletPos.left + this.bullets[i].bullets.Size.w
+            ) {
+                console.log
+                return true
+            }
+        }
+
+        for (let i = 0; i < this.player2.bullets.length; i++) {
+            console.log('hola')
+            if (this.player2.playerPos.position + this.player2.playerSize.w >= this.bullets[i].bulletPos.left &&
+                this.player2.playerPos.top + this.player2.playerSize.h >= this.bullets[i].bulletPos.top &&
+                this.player2.playerPos.left <= this.bullets[i].bulletPos.left + this.bullets[i].bullets.Size.w
+            ) {
+                console.log('player2')
+                return true
+            }
+        }
+
+
+    }
 }
+

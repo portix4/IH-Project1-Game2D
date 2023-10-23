@@ -74,7 +74,11 @@ class Player {
 
         this.updatePosition()
 
+
+
         this.bullets.forEach(bullet => bullet.move())
+
+        //    this.isCollision()
 
         this.clearBullets()
     }
@@ -107,6 +111,7 @@ class Player {
     }
 
     jump() {
+
         if (this.playerPos.top > 0 + this.playerSize.h) {
             this.playerPos.top -= 40;
             this.playerVel.top -= 8;
@@ -118,6 +123,7 @@ class Player {
     checkDirection() {
 
         if (this.lastPosition.length >= 2) {
+            this.lastPosition.pop()
             if (this.lastPosition[0] < this.lastPosition[1]) {
                 return -1
             }
@@ -133,6 +139,22 @@ class Player {
             top: this.playerPos.top
         }, this.playerSize, this.checkDirection()));
     }
+
+    /*   isCollision() {
+   
+           for (let i = 0; i < this.bullets.length; i++) {
+               if (this.playerPos.position + this.playerSize.w >= this.bullets[i].bulletPos.left &&
+                   this.playerPos.top + this.playerSize.h >= this.bullets[i].bulletPos.top &&
+                   this.playerPos.position <= this.bullets[i].bulletPos.left + this.bullets[i].bulletSize.w
+               ) {
+                   console.log('ay!')
+                   return true
+               }
+           }
+           ESTO ES PURRIA this.playerPos.position + this.playerSize.w >= this.bullets[i].bulletsPos.left &&
+                   this.playerPos.top + this.playerSize.h >= this.bullets[i].bulletsPos.top &&
+                   this.playerPos.position <= this.bullets[i].bulletsPos.left + this.bullets[i].bulletsSize.w
+       } */
 
 
 
