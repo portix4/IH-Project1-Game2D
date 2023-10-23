@@ -10,6 +10,7 @@ class Player {
         this.mainPlatform = mainPlatform
         this.auxPlatform = auxPlatform
         this.bullets = []
+        this.lastPosition = []
 
         this.numberOfJumps = 0
 
@@ -25,9 +26,9 @@ class Player {
         }
 
         this.playerVel = {
-            left: 0.1,
-            top: 1,
-            gravity: 0.4
+            left: 1,
+            top: 2,
+            gravity: 0.33
         }
 
         this.init()
@@ -51,20 +52,20 @@ class Player {
 
     move() {
 
-        if (this.playerPos.position < this.mainPlatform.leftPosition) { // si se cae por la izquierda
+
+        if (this.playerPos.position < this.mainPlatform.leftPosition - this.playerSize.w) { // si se cae por la izquierda
             this.playerPos.top += this.playerVel.top;
-            this.playerVel.top += this.playerVel.gravity;
+            //  this.playerVel.top += this.playerVel.gravity;
         }
 
         if (this.playerPos.position > this.mainPlatform.leftPosition + this.mainPlatform.width) { // si se cae por la derecha
             this.playerPos.top += this.playerVel.top;
-            this.playerVel.top += this.playerVel.gravity;
+            //this.playerVel.top += this.playerVel.gravity;
         }
 
         if (this.playerPos.top < this.mainPlatform.topPosition - this.playerSize.h) { // salta
             this.playerPos.top += this.playerVel.top;
             this.playerVel.top += this.playerVel.gravity;
-            console.log(this.playerPos, this.playerVel)
         }
 
         if (this.playerPos.top > this.gameSize.h) { // Si llegan muy abajo, mueren
@@ -74,18 +75,22 @@ class Player {
         this.updatePosition()
 
         this.bullets.forEach(bullet => bullet.move())
+
         this.clearBullets()
     }
 
     updatePosition() {
+
         this.playerElement.style.left = `${this.playerPos.position}px`;
         this.playerElement.style.top = `${this.playerPos.top}px`
+        //this.lastPosition.unshift(this.playerElement.style.left)
     }
 
     left() {
 
         if (this.playerPos.position > 0) { // Para que no se salgan por la izquierda los players 
             this.playerPos.position -= 20;
+            this.lastPosition.unshift(this.playerPos.position)
             this.updatePosition()
         }
     }
@@ -95,25 +100,46 @@ class Player {
 
         if (this.playerPos.position < this.gameSize.w - this.playerSize.w) { // Para que no se salgan por la derecha los players
             this.playerPos.position += 20;
+            this.lastPosition.unshift(this.playerPos.position)
             this.updatePosition()
         }
 
     }
 
     jump() {
-        this.playerPos.top -= 40;
-        this.playerVel.top -= 8;
-        this.updatePosition()
+        if (this.playerPos.top > 0 + this.playerSize.h) {
+            this.playerPos.top -= 40;
+            this.playerVel.top -= 8;
+            this.updatePosition()
+        }
+
+    }
+
+    checkDirection() {
+
+        console.log(this.lastPosition[0], this.lastPosition[1])
+
+        if (this.lastPosition.length >= 2) {
+            if (this.lastPosition[0] < this.lastPosition[1]) {
+                return -1
+            }
+            else return 1
+        }
+        else return -1
     }
 
     shoot() {
+
         this.bullets.push(new Bullets(this.gameScreen, {
             left: this.playerPos.position,
             top: this.playerPos.top
-        }, this.playerSize));
+        }, this.playerSize, this.checkDirection()));
     }
 
+
+
     clearBullets() {
+
         this.bullets.forEach((bull, idx) => {
             if (bull.bulletPos.left >= this.gameSize.w) {
                 bull.bulletElement.remove()
@@ -121,5 +147,7 @@ class Player {
             }
         })
     }
+
+
 
 }

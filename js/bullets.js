@@ -1,5 +1,5 @@
 class Bullets {
-    constructor(gameScreen, playerPos, playerSize) {
+    constructor(gameScreen, playerPos, playerSize, direction) {
         this.gameScreen = gameScreen
         this.playerPos = playerPos
         this.playerSize = playerSize
@@ -8,7 +8,7 @@ class Bullets {
             top: playerPos.top + playerSize.h / 2
         }
         this.bulletVel = {
-            left: -10,
+            left: 10 * direction,
             top: 0,
             gravity: 0
         }

@@ -58,11 +58,11 @@ const Game = {
 
     setEventListeners() {
         document.addEventListener("keydown", e => {
+
             switch (e.key) { // Hemos cambiado el e.code por e.key, porque no nos lo cogia
                 case this.keys.left1:
                     this.player1.left()
                     break;
-
                 case this.keys.right1:
                     this.player1.right()
                     break;
@@ -71,7 +71,6 @@ const Game = {
                     break;
                 case this.keys.shoot1:
                     this.player1.shoot()
-                    console.log(e)
                     break;
                 case this.keys.left2:
                     this.player2.left()
@@ -84,7 +83,6 @@ const Game = {
                     break;
                 case this.keys.shoot2:
                     this.player2.shoot()
-                    console.log(e)
                     break;
             }
         })
@@ -100,8 +98,8 @@ const Game = {
         this.background = new Background(this.gameScreen, this.gameSize)
         this.mainPlatform = new Platform(this.mainPlatform.width, this.mainPlatform.heigth, this.mainPlatform.leftPosition, this.mainPlatform.topPosition)
         this.auxPlatform = new Platform(this.auxPlatform.width, this.auxPlatform.heigth, this.auxPlatform.leftPosition, this.auxPlatform.topPosition)
-        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.4, 'black', this.mainPlatform, this.auxPlatform)
-        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.4, 'rgb(12, 52, 18)', this.mainPlatform, this.auxPlatform)
+        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.4, 'green', this.mainPlatform, this.auxPlatform)
+        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.4, 'white', this.mainPlatform, this.auxPlatform)
 
     },
 
