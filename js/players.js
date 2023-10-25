@@ -1,6 +1,6 @@
 class Player {
 
-    constructor(gameScreen, gameSize, leftPosition, topPosition, image, mainPlatform, auxPlatform) {
+    constructor(gameScreen, gameSize, leftPosition, topPosition, image, mainPlatform) {
 
         this.gameScreen = gameScreen
         this.gameSize = gameSize
@@ -8,9 +8,9 @@ class Player {
         this.topPosition = topPosition
         this.image = image
         this.mainPlatform = mainPlatform
-        this.auxPlatform = auxPlatform
         this.bullets = []
         this.lastPosition = []
+        this.life = 10
 
         this.numberOfJumps = 0
 
@@ -27,8 +27,8 @@ class Player {
 
         this.playerVel = {
             left: 1,
-            top: 2,
-            gravity: 0.33
+            top: 1,
+            gravity: 0.25
         }
 
         this.init()
@@ -53,20 +53,13 @@ class Player {
     move() {
 
 
-        if (this.playerPos.position < this.mainPlatform.leftPosition - this.playerSize.w) { // si se cae por la izquierda
-            this.playerPos.top += this.playerVel.top;
-            //  this.playerVel.top += this.playerVel.gravity;
-        }
-
-        if (this.playerPos.position > this.mainPlatform.leftPosition + this.mainPlatform.width) { // si se cae por la derecha
-            this.playerPos.top += this.playerVel.top;
-            //this.playerVel.top += this.playerVel.gravity;
-        }
-
-        if (this.playerPos.top < this.mainPlatform.topPosition - this.playerSize.h) { // salta
+        if (this.playerPos.top < this.mainPlatform.topPosition - this.playerSize.h) {  // está saltando!
             this.playerPos.top += this.playerVel.top;
             this.playerVel.top += this.playerVel.gravity;
-        }
+        } /*else {
+            this.playerPos.top = this.playerPos.base;
+            this.playerVel.top = 1;
+        }*/
 
         if (this.playerPos.top > this.gameSize.h) { // Si llegan muy abajo, mueren
             alert('Game Over', this.Player)
@@ -74,11 +67,7 @@ class Player {
 
         this.updatePosition()
 
-
-
         this.bullets.forEach(bullet => bullet.move())
-
-        //    this.isCollision()
 
         this.clearBullets()
     }
@@ -87,12 +76,11 @@ class Player {
 
         this.playerElement.style.left = `${this.playerPos.position}px`;
         this.playerElement.style.top = `${this.playerPos.top}px`
-        //this.lastPosition.unshift(this.playerElement.style.left)
     }
 
     left() {
 
-        if (this.playerPos.position > 0) { // Para que no se salgan por la izquierda los players 
+        if (this.playerPos.position > 0) {
             this.playerPos.position -= 20;
             this.lastPosition.unshift(this.playerPos.position)
             this.updatePosition()
@@ -102,7 +90,7 @@ class Player {
 
     right() {
 
-        if (this.playerPos.position < this.gameSize.w - this.playerSize.w) { // Para que no se salgan por la derecha los players
+        if (this.playerPos.position < this.gameSize.w - this.playerSize.w) {
             this.playerPos.position += 20;
             this.lastPosition.unshift(this.playerPos.position)
             this.updatePosition()
@@ -112,7 +100,7 @@ class Player {
 
     jump() {
 
-        if (this.playerPos.top > 0 + this.playerSize.h) {
+        if (this.playerPos.top > this.playerSize.h && this.playerPos.top > 0) {
             this.playerPos.top -= 40;
             this.playerVel.top -= 8;
             this.updatePosition()
@@ -139,23 +127,6 @@ class Player {
             top: this.playerPos.top
         }, this.playerSize, this.checkDirection()));
     }
-
-    /*   isCollision() {
-   
-           for (let i = 0; i < this.bullets.length; i++) {
-               if (this.playerPos.position + this.playerSize.w >= this.bullets[i].bulletPos.left &&
-                   this.playerPos.top + this.playerSize.h >= this.bullets[i].bulletPos.top &&
-                   this.playerPos.position <= this.bullets[i].bulletPos.left + this.bullets[i].bulletSize.w
-               ) {
-                   console.log('ay!')
-                   return true
-               }
-           }
-           ESTO ES PURRIA this.playerPos.position + this.playerSize.w >= this.bullets[i].bulletsPos.left &&
-                   this.playerPos.top + this.playerSize.h >= this.bullets[i].bulletsPos.top &&
-                   this.playerPos.position <= this.bullets[i].bulletsPos.left + this.bullets[i].bulletsSize.w
-       } */
-
 
 
     clearBullets() {
