@@ -31,7 +31,7 @@ class Bullets {
         this.gameScreen.appendChild(this.bulletElement)
     }
 
-    move() {
+    move() { // ES DIFERENTE AL DE MOHA
         this.bulletPos.left += this.bulletVel.left
         this.bulletVel.top += this.bulletVel.gravity
         this.bulletPos.top += this.bulletVel.top

@@ -9,6 +9,7 @@ const Game = {
 
 
     framesCounter: 0,
+    framesIndex: 0,
 
     background: undefined,
 
@@ -73,7 +74,8 @@ const Game = {
                     this.player1.right()
                     break;
                 case this.keys.up1:
-                    this.player1.jump()
+                    if (this.player1.numberOfJumps < 5)
+                        this.player1.jump()
                     break;
                 case this.keys.shoot1:
                     this.player1.shoot()
@@ -85,7 +87,8 @@ const Game = {
                     this.player2.right()
                     break;
                 case this.keys.up2:
-                    this.player2.jump()
+                    if (this.player2.numberOfJumps < 5)
+                        this.player2.jump()
                     break;
                 case this.keys.shoot2:
                     this.player2.shoot()
@@ -105,8 +108,8 @@ const Game = {
 
         this.mainPlatform = new Platform(this.mainPlatform.width, this.mainPlatform.heigth, this.mainPlatform.leftPosition, this.mainPlatform.topPosition)
         this.auxPlatform = new Platform(this.auxPlatform.width, this.auxPlatform.heigth, this.auxPlatform.leftPosition, this.auxPlatform.topPosition)
-        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.4, 'green', this.mainPlatform)
-        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 50, this.gameSize.h / 1.4, 'white', this.mainPlatform, this.auxPlatform)
+        this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.4, 'url(./img/players.png)', this.mainPlatform)
+        this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 70, this.gameSize.h / 1.4, 'url(./img/player2.png)', this.mainPlatform, this.auxPlatform)
         this.bullets = []
         this.platforms = []
         this.platforms.push(this.auxPlatform)
@@ -114,42 +117,106 @@ const Game = {
 
     },
 
-    checkPlatform() {
+    /* checkPlatform() {  ANTIGUO
+         // FALTA PARA PLAYER2
+         this.platforms.forEach(element => {
+ 
+             if (this.player1.playerPos.position + this.player1.playerSize.w >= element.leftPosition &&
+                 this.player1.playerPos.top + this.player1.playerSize.h >= element.topPosition &&
+                 this.player1.playerPos.position <= element.leftPosition + element.width) {
+ 
+                 this.isOnPlatform = true
+                 this.player1.numberOfJumps = 0
+ 
+                 this.player1.playerVel.top = 0
+                 this.player1.playerPos.base = element.topPosition
+ 
+                 return true
+             }
+             else { // SIN ESTE ELSE, NO SE CAE DE MAINPLATFORM - CON EL ELSE, NO SE QUEDA EN LA PLATAFORMA DE ENCIMA
+                 this.isOnPlatform = false
+                 this.player1.playerPos.top += this.player1.playerVel.top / 2
+                 this.player1.playerVel.top += this.player1.playerVel.gravity / 2
+                 return false
+             }
+         }) //  console.log(this.isOnPlatform)
+         // return this.isOnPlatform
+         this.platforms.forEach(element => {
+             if (this.player2.playerPos.position + this.player2.playerSize.w >= element.leftPosition &&
+                 this.player2.playerPos.top + this.player2.playerSize.h >= element.topPosition &&
+                 this.player2.playerPos.position <= element.leftPosition + element.width) {
+ 
+                 this.isOnPlatform = true
+                 this.player2.numberOfJumps = 0
+ 
+                 this.player2.playerVel.top = 0
+                 this.player2.playerPos.base = element.topPosition
+ 
+                 return true
+             }
+             else { // SIN ESTE ELSE, NO SE CAE DE MAINPLATFORM - CON EL ELSE, NO SE QUEDA EN LA PLATAFORMA DE ENCIMA
+                 this.isOnPlatform = false
+                 this.player2.playerPos.top += this.player2.playerVel.top / 2
+                 this.player2.playerVel.top += this.player2.playerVel.gravity / 2
+                 return false
+             }
+ 
+         })
+         //  console.log(this.isOnPlatform)
+         //   return this.isOnPlatform
+ 
+         // CODIGO DE LORENA
+         /*   this.platforms.forEach(element => {
+                if (
+                    this.player1.playerPos.position + this.player1.playerSize.w >= element.leftPosition &&
+                    this.player1.playerPos.top + this.player1.playerSize.h >= element.topPosition &&
+                    this.player1.playerPos.position <= element.leftPosition + element.width
+                ) {
+                    // Colisión desde abajo
+                    if (this.player1.playerPos.top + this.player1.playerSize.h - this.player1.playerVel.top <= element.topPosition) {
+                        this.isOnPlatform = true;
+                        this.player1.playerVel.top = 0;
+                        this.player1.playerPos.top = element.topPosition - this.player1.playerSize.h;
+                    }
+                }
+            });
+    
+            console.log(this.isOnPlatform)
+    
+            return this.isOnPlatform
+ 
+     }, */
 
-        // FALTA PARA PLAYER2
+    checkPlatform() {
 
 
         this.platforms.forEach(element => {
-
-            if (this.player1.playerPos.position + this.player1.playerSize.w >= element.leftPosition &&
+            if (
+                this.player1.playerPos.position + this.player1.playerSize.w >= element.leftPosition &&
                 this.player1.playerPos.top + this.player1.playerSize.h >= element.topPosition &&
-                this.player1.playerPos.position <= element.leftPosition + element.width) {
-
-                this.isOnPlatform = true
-
-                this.player1.playerVel.top = 0
-                this.player1.playerPos.base = element.topPosition
-
-
+                this.player1.playerPos.position <= element.leftPosition + element.width
+            ) {
+                if (this.player1.playerPos.top + this.player1.playerSize.h - this.player1.playerVel.top <= element.topPosition) {
+                    this.player1.playerVel.top = 0;
+                    this.player1.playerPos.top = element.topPosition - this.player1.playerSize.h;
+                }
+                this.player1.numberOfJumps = 0
             }
-        })
 
-        // if (this.isOnPlatform) {
-        //     this.player1.playerVel.top = 0
-        //     this.player1.playerPos.base = element.topPosition
-        //     // return true
-        // }
+            if (
+                this.player2.playerPos.position + this.player2.playerSize.w >= element.leftPosition &&
+                this.player2.playerPos.top + this.player2.playerSize.h >= element.topPosition &&
+                this.player2.playerPos.position <= element.leftPosition + element.width
+            ) {
+                if (this.player2.playerPos.top + this.player2.playerSize.h - this.player2.playerVel.top <= element.topPosition) {
+                    this.player2.playerVel.top = 0;
+                    this.player2.playerPos.top = element.topPosition - this.player2.playerSize.h;
+                }
+            }
+            this.player2.numberOfJumps = 0
+        });
 
-        //     else {
-        //     this.isOnPlatform = false
-        //             this.player1.playerPos.top += this.player1.playerVel.top;
-        //     this.player1.playerVel.top += this.player1.playerVel.gravity
-        //     // return false
-        // }
 
-        console.log(this.isOnPlatform)
-
-        return this.isOnPlatform
 
     },
 
@@ -161,6 +228,8 @@ const Game = {
 
         this.drawAll()
 
+        this.incrementFrames()
+
         this.checkPlatform()
 
         this.checkCollision()
@@ -168,11 +237,15 @@ const Game = {
         window.requestAnimationFrame(() => this.gameLoop())
     },
 
+    incrementFrames() {
+        this.framesIndex > 5000 ? this.framesIndex = 0 : this.framesIndex++
+    },
+
     drawAll() {
 
         this.background.move()
-        this.player1.move()
-        this.player2.move()
+        this.player1.move(this.framesIndex)
+        this.player2.move(this.framesIndex)
     },
 
 
@@ -191,7 +264,6 @@ const Game = {
                     console.log(this.player1.bullets[i])
                     this.player1.bullets[i].bulletElement.remove()
                     this.player1.bullets.splice(i, 1);
-                    // Eliminar la bala al colisionar
                 }
                 if (this.player2.life <= 0) {
                     alert("GANADOR 2");
