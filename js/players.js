@@ -10,7 +10,7 @@ class Player {
         this.mainPlatform = mainPlatform
         this.bullets = []
         this.lastPosition = []
-        this.life = 10
+        this.life = 16
         this.direction = 1
 
         this.numberOfJumps = 0

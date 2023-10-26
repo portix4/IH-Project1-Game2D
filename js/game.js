@@ -19,6 +19,8 @@ const Game = {
     mainPlatform: undefined,
     auxPlatform: undefined,
 
+    heart1: undefined,
+
     isOnPlatform: false,
 
     boxDensity: 250,
@@ -117,12 +119,15 @@ const Game = {
 
     createElements() {
 
+
         this.background = new Background(this.gameScreen, this.gameSize)
 
         this.mainPlatform = new Platform(this.mainPlatform.width, this.mainPlatform.heigth, this.mainPlatform.leftPosition, this.mainPlatform.topPosition)
         this.auxPlatform = new Platform(this.auxPlatform.width, this.auxPlatform.heigth, this.auxPlatform.leftPosition, this.auxPlatform.topPosition)
         this.player1 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4, this.gameSize.h / 1.4, 'url(./img/players.png)', this.mainPlatform)
         this.player2 = new Player(this.gameScreen, this.gameSize, this.gameSize.w / 4 + this.gameSize.w / 2 - 70, this.gameSize.h / 1.4, 'url(./img/player2.png)', this.mainPlatform, this.auxPlatform)
+        this.heart1 = new Life(this.gameScreen, this.gameSize, this.player1.life, 50)
+        this.heart2 = new Life(this.gameScreen, this.gameSize, this.player2.life, this.gameSize.w - 200)
         this.bullets = []
         this.platforms = []
         this.platforms.push(this.auxPlatform)
@@ -148,45 +153,7 @@ const Game = {
 
             }
         }
-
-        /*    for (let j = 0; j < this.platforms.length; i++) {
-                if (
-                    this.player2.playerPos.position + this.player2.playerSize.w >= this.platforms[j].leftPosition &&
-                    this.player2.playerPos.top + this.player2.playerSize.h >= this.platforms[j].topPosition &&
-                    this.player2.playerPos.position <= this.platforms[j].leftPosition + this.platforms[j].width
-                ) {
-                    if (this.player2.playerPos.top + this.player2.playerSize.h - this.player2.playerVel.top <= this.platforms[j].topPosition) {
-                        this.player2.playerVel.top = 0;
-                        this.player2.playerPos.top = this.platforms[j].topPosition - this.player2.playerSize.h;
-                        this.player2.numberOfJumps = 0
-                        return true
-                    }
-    
-                }
-            }*/
-        // this.platforms.forEach(element => {
-
-        //  })
-        /* this.platforms.forEach(element => {
-             if (
-                 this.player2.playerPos.position + this.player2.playerSize.w >= element.leftPosition &&
-                 this.player2.playerPos.top + this.player2.playerSize.h >= element.topPosition &&
-                 this.player2.playerPos.position <= element.leftPosition + element.width
-             ) {
-                 if (this.player2.playerPos.top + this.player2.playerSize.h - this.player2.playerVel.top <= element.topPosition) {
-                     this.player2.playerVel.top = 0;
-                     this.player2.playerPos.top = element.topPosition - this.player2.playerSize.h;
-                     this.player2.numberOfJumps = 0
-                     return true
-                 }
-             }
- 
-         });*/
-
-
-
     },
-
 
 
     gameLoop() {
@@ -206,10 +173,12 @@ const Game = {
 
 
         this.checkCollision()
+
         this.collisionPlayerBox(this.player1)
         this.collisionPlayerBox(this.player2)
 
         this.clearBoxes()
+
 
         window.requestAnimationFrame(() => this.gameLoop())
     },
@@ -227,6 +196,7 @@ const Game = {
     },
 
     generateBoxes() {
+
         if (this.framesCounter % this.boxDensity === 0) {
             let newBoxes = new Box(this.gameScreen, this.gameSize, this.player1.playerPos, this.player1.playerSize)
             this.boxes.push(newBoxes)
@@ -245,15 +215,17 @@ const Game = {
                 this.player2.playerPos.position += 15
                 if (this.player2.life > 0) {
                     this.player2.life--;
+                    this.heart2.updateLives(this.player2.life)
                     console.log(this.player1.bullets[i])
                     this.player1.bullets[i].bulletElement.remove()
                     this.player1.bullets.splice(i, 1);
                 }
                 if (this.player2.life <= 0) {
-                    alert("GANADOR 2");
+                    alert("GANADOR 1");
                 }
             }
         }
+
         for (let i = 0; i < this.player2.bullets.length; i++) {
             const bullet = this.player2.bullets[i];
             if (
@@ -266,12 +238,13 @@ const Game = {
                 this.player1.playerPos.position -= 15
                 if (this.player1.life > 0) {
                     this.player1.life--;
+                    this.heart1.updateLives(this.player1.life)
                     this.player2.bullets[i].bulletElement.remove()
                 } console.log(this.player1.life)
                 this.player2.bullets.splice(i, 1);
                 // Eliminar la bala al colisionar
                 if (this.player1.life <= 0) {
-                    alert("GANADOR 1");
+                    alert("GANADOR 2");
                 }
             }
         }
@@ -311,13 +284,16 @@ const Game = {
                 this.boxes[i].boxPos.left + this.boxes[i].boxSize.w >= player.playerPos.position &&
                 this.boxes[i].boxPos.top + this.boxes[i].boxSize.h >= player.playerPos.top &&
                 this.boxes[i].boxPos.left <= player.playerPos.position + player.playerSize.w
-            ) {
+            ) // falta que lo pille por encima
+            {
                 player.life += 2
                 console.log(player.life)
                 this.boxes[i].boxPos.Element.remove()
                 this.boxes.splice(i, 1)
             }
         }
+        this.heart1.updateLives(this.player1.life)
+        this.heart2.updateLives(this.player2.life)
 
     }
 

@@ -11,6 +11,7 @@ class Platform {
     }
 
     init() {
+        console.log('plataform')
 
         this.platformElement = document.createElement('div')
         this.platformElement.style.position = "absolute"
