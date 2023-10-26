@@ -212,7 +212,7 @@ const Game = {
                 this.player2.playerPos.top <= bullet.bulletPos.top &&
                 this.player2.playerPos.top + this.player2.playerSize.h >= bullet.bulletPos.top) {
                 console.log('Colisión con Player 2');
-                this.player2.playerPos.position += 15
+                this.player2.playerPos.position += 30
                 if (this.player2.life > 0) {
                     this.player2.life--;
                     this.heart2.updateLives(this.player2.life)
@@ -235,7 +235,7 @@ const Game = {
                 this.player1.playerPos.top + this.player1.playerSize.h >= bullet.bulletPos.top
             ) {
                 console.log('Colisión con Player 1');
-                this.player1.playerPos.position -= 15
+                this.player1.playerPos.position -= 30
                 if (this.player1.life > 0) {
                     this.player1.life--;
                     this.heart1.updateLives(this.player1.life)

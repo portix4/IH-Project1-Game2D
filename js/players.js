@@ -162,8 +162,8 @@ class Player {
 
         this.numberOfJumps++
         if (this.playerPos.top > this.playerSize.h && this.playerPos.top > 0) {
-            this.playerPos.top -= 40;
-            this.playerVel.top -= 10;
+            this.playerPos.top -= 20;
+            this.playerVel.top -= 8;
             this.updatePosition()
         }
 
