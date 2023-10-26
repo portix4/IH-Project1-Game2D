@@ -24,7 +24,7 @@ class Box {
         this.boxSprite = {
             backgroundPositionX: 0,
             totalFrames: 9,
-            currentFrame: 0,
+            currentFrame: 1,
             frameSpeed: 10
         }
 
@@ -50,20 +50,20 @@ class Box {
         this.gameScreen.appendChild(this.spriteElement)
     }
 
-    move(framesIndex) {
+    move(framesCounter) {
 
         this.boxPos.top += this.boxVel.top
 
-        this.animateSprite(framesIndex)
+        this.animateSprite(framesCounter)
 
         this.updatePosition()
 
     }
 
 
-    animateSprite(framesIndex) {
-        this.updateSprite()
-        if (framesIndex % this.boxSprite.frameSpeed == 0) {
+    animateSprite(framesCounter) {
+
+        if (framesCounter % this.boxSprite.frameSpeed == 0) {
             this.boxSprite.currentFrame++
             console.log("voy por el frame------>", this.boxSprite.currentFrame)
         }
@@ -72,7 +72,7 @@ class Box {
             this.boxSprite.currentFrame = 0
         }
         this.boxSprite.backgroundPositionX = -this.boxSize.w * this.boxSprite.currentFrame
-
+        this.updateSprite()
     }
 
     updatePosition() {
@@ -80,8 +80,13 @@ class Box {
         this.spriteElement.style.top = `${this.boxPos.top}px`
     }
 
+    /* updateSprite() {
+ 
+         this.spriteElement.style.backgroundPositionX = `${this.spriteElement.backgroundPositionX}px`
+     }*/
     updateSprite() {
 
-        this.spriteElement.style.backgroundPositionX = `${this.spriteElement.backgroundPositionX}px`
+        this.spriteElement.style.backgroundPositionX = `${this.boxSprite.backgroundPositionX}px`
     }
 }
+

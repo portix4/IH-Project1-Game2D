@@ -192,7 +192,7 @@ const Game = {
         this.background.move()
         this.player1.move(this.framesIndex)
         this.player2.move(this.framesIndex)
-        this.boxes.forEach(obs => obs.move(this.framesIndex))
+        this.boxes.forEach(obs => obs.move(this.framesCounter))
     },
 
     generateBoxes() {
