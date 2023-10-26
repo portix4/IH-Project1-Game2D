@@ -206,6 +206,10 @@ const Game = {
 
 
         this.checkCollision()
+        this.collisionPlayerBox(this.player1)
+        this.collisionPlayerBox(this.player2)
+
+        this.clearBoxes()
 
         window.requestAnimationFrame(() => this.gameLoop())
     },
@@ -275,37 +279,47 @@ const Game = {
     },
 
     collisionBoxPlatform() {
-        let check = false
         for (let i = 0; i < this.boxes.length; i++) {
-            for (let j = 0; this.platforms.length; j++) {
-                console.log(this.platforms[j])
+            for (let j = 0; j < this.platforms.length; j++) {
                 if (
                     this.boxes[i].boxPos.left + this.boxes[i].boxSize.w >= this.platforms[j].leftPosition &&
                     this.boxes[i].boxPos.top + this.boxes[i].boxSize.h >= this.platforms[j].topPosition &&
                     this.boxes[i].boxPos.left <= this.platforms[j].leftPosition + this.platforms[j].width
                 ) {
-                    this.boxes[i].boxPos = this.platforms[j].topPosition
-                    this.boxes[i].boxVel = 0
+                    this.boxes[i].boxVel.top = 0
+                    this.boxes[i].boxPos.top = this.platforms[j].topPosition - this.boxes[i].boxSize.h
                 }
             }
         }
+    },
+
+    clearBoxes() {
+
+        this.boxes.forEach((box, idx) => {
+            if (box.boxPos.top >= this.gameSize.h) {
+                box.boxPos.Element.remove()
+                this.boxes.splice(idx, 1)
+            }
+        })
+
+    },
+
+
+    collisionPlayerBox(player) {
+        for (let i = 0; i < this.boxes.length; i++) {
+            if (
+                this.boxes[i].boxPos.left + this.boxes[i].boxSize.w >= player.playerPos.position &&
+                this.boxes[i].boxPos.top + this.boxes[i].boxSize.h >= player.playerPos.top &&
+                this.boxes[i].boxPos.left <= player.playerPos.position + player.playerSize.w
+            ) {
+                player.life += 2
+                console.log(player.life)
+                this.boxes[i].boxPos.Element.remove()
+                this.boxes.splice(i, 1)
+            }
+        }
+
     }
 
 
 }
-
-// collisionBoxPlatform() {
-//     let check = false
-//     for (let i = 0; i < this.boxes.length; i++) {
-
-//         if (
-//             this.boxes[i].boxPos.left + this.boxes[i].boxSize.w >= this.platforms.leftPosition &&
-//             this.boxes[i].boxPos.top + this.boxes[i].boxSize.h >= this.platforms.topPosition &&
-//             this.boxes[i].boxPos.left <= this.platforms.leftPosition + this.platforms.width
-//         ) {
-//             this.boxes[i].boxPos = this.platforms.topPosition
-//             this.boxes[i].boxVel = 0
-//         }
-
-//     }
-// }
