@@ -60,6 +60,7 @@ class Player {
         this.playerElement.style.height = `${this.playerSize.h}px`
         this.playerElement.style.left = `${this.leftPosition}px`
         this.playerElement.style.top = `${this.playerPos.top}px`
+
         this.playerElement.style.backgroundImage = `${this.image}`
         this.playerElement.style.backgroundSize = `300px 100px`
         this.playerElement.style.overflow = "hidden"

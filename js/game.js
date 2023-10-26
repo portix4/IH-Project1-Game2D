@@ -192,7 +192,7 @@ const Game = {
         this.background.move()
         this.player1.move(this.framesIndex)
         this.player2.move(this.framesIndex)
-        this.boxes.forEach(obs => obs.move())
+        this.boxes.forEach(obs => obs.move(this.framesIndex))
     },
 
     generateBoxes() {
@@ -270,7 +270,7 @@ const Game = {
 
         this.boxes.forEach((box, idx) => {
             if (box.boxPos.top >= this.gameSize.h) {
-                box.boxPos.Element.remove()
+                box.spriteElement.remove()
                 this.boxes.splice(idx, 1)
             }
         })
@@ -288,7 +288,7 @@ const Game = {
             {
                 player.life += 2
                 console.log(player.life)
-                this.boxes[i].boxPos.Element.remove()
+                this.boxes[i].spriteElement.remove()
                 this.boxes.splice(i, 1)
             }
         }
