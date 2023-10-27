@@ -172,7 +172,18 @@ const Game = {
         this.checkPlatform(this.player2)
 
 
-        this.checkCollision()
+        if (this.checkCollision()) {
+
+            const gameOverScreen = document.getElementById("game-over-screen");
+            gameOverScreen.style.display = "block";
+            return;
+        }
+        if (this.player1.playerPos.top >= this.gameSize.h || this.player2.playerPos.top >= this.gameSize.h) {
+            const gameOverScreen = document.getElementById("game-over-screen");
+            gameOverScreen.style.display = "block";
+            return true;
+        }
+
 
         this.collisionPlayerBox(this.player1)
         this.collisionPlayerBox(this.player2)
@@ -200,7 +211,6 @@ const Game = {
         if (this.framesCounter % this.boxDensity === 0) {
             let newBoxes = new Box(this.gameScreen, this.gameSize, this.player1.playerPos, this.player1.playerSize)
             this.boxes.push(newBoxes)
-            //hay que meter al otro jugador y en su clase y las plataformas - o no?
         }
     },
 
@@ -284,8 +294,7 @@ const Game = {
                 this.boxes[i].boxPos.left + this.boxes[i].boxSize.w >= player.playerPos.position &&
                 this.boxes[i].boxPos.top + this.boxes[i].boxSize.h >= player.playerPos.top &&
                 this.boxes[i].boxPos.left <= player.playerPos.position + player.playerSize.w
-            ) // falta que lo pille por encima
-            {
+            ) {
                 player.life += 2
                 console.log(player.life)
                 this.boxes[i].spriteElement.remove()

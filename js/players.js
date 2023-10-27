@@ -71,24 +71,7 @@ class Player {
 
     }
 
-    /*move() {
 
-
-        if (this.playerPos.top < this.mainPlatform.topPosition - this.playerSize.h) {
-            this.playerPos.top += this.playerVel.top;
-            this.playerVel.top += this.playerVel.gravity;
-        }
-
-        if (this.playerPos.top > this.gameSize.h) { // Si llegan muy abajo, mueren
-            alert('Game Over', this.Player)
-        }
-
-        this.updatePosition()
-
-        this.bullets.forEach(bullet => bullet.move())
-
-        this.clearBullets()
-    }*/
 
     move(framesIndex) {
 
@@ -170,17 +153,6 @@ class Player {
 
     }
 
-    /*  checkDirection() {
-  
-          if (this.lastPosition.length >= 2) {
-              this.lastPosition.pop()
-              if (this.lastPosition[0] < this.lastPosition[1]) {
-                  return -1
-              }
-              else return 1
-          }
-          else return -1
-      }*/
 
     shoot() {
 

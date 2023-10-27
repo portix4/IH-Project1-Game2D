@@ -8,8 +8,8 @@ class Box {
         this.playerSize = playerSize;
 
         this.boxSize = {
-            w: 75,
-            h: 100
+            w: 68,
+            h: 85
         }
 
         this.boxPos = {
@@ -23,9 +23,9 @@ class Box {
 
         this.boxSprite = {
             backgroundPositionX: 0,
-            totalFrames: 9,
-            currentFrame: 1,
-            frameSpeed: 10
+            totalFrames: 5,
+            currentFrame: 0,
+            frameSpeed: 16
         }
 
         this.init()
@@ -42,7 +42,7 @@ class Box {
         this.spriteElement.style.top = `${this.boxPos.top}px`
 
         this.spriteElement.style.backgroundImage = `url(./img/vidas.png)`
-        this.spriteElement.style.backgroundSize = `650px 100px`
+        this.spriteElement.style.backgroundSize = `674px 95px`
         this.spriteElement.style.overflow = "hidden"
         this.spriteElement.style.backgroundRepeat = "no-repeat"
         this.spriteElement.style.backgroundPositionX = "20px"
